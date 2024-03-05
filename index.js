@@ -50,7 +50,7 @@ let toPng = async()=>{
     return image
 }
 
-app.get("/",async(req,res)=>{
+app.get("/invoice",async(req,res)=>{
     res.writeHead(200,{
         "Content-Type": "application/pdf",
         "content-disposition": "attachment;filename=invoice.pdf"
