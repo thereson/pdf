@@ -1,3 +1,7 @@
-###### how to run locally
----
-1. 
+ ###### how to run locally
+
+##### to install  neccesary dependencies:run
+```javascript
+npm i
+
+```
