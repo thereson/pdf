@@ -51,18 +51,29 @@ let toPng = async()=>{
 }
 
 app.get("/invoice",async(req,res)=>{
-    res.writeHead(200,{
-        "Content-Type": "application/pdf",
-        "content-disposition": "attachment;filename=invoice.pdf"
-    })
-    const receipt = await toPdf()
-    res.end(receipt)
+
+    try{
+        res.writeHead(200,{
+            "Content-Type": "application/pdf",
+            "content-disposition": "attachment;filename=invoice.pdf"
+        })
+        const receipt = await toPdf()
+        res.end(receipt)
+
+    }catch(err){
+        res.send(err.message)
+    }
+    
 })
 app.get("/image",async(req,res)=>{
-    
+    try{
     const receipt = await toPng()
     res.contentType("application/png")
     res.end(receipt)
+    }catch(err){
+        res.send(err.message)
+    }
+    
 })
 
 app.listen(8080,()=>{
