@@ -2,13 +2,13 @@ const pt = require("puppeteer");
 let fs = require("fs");
 let path = require("path")
 const hbs = require("handlebars")
-let data = require("./data.json")
+// let jdt = require("./data.json")
 const express = require("express")
 let app = express()
 
 
 
-let toPdf = async()=>{
+let toPdf = async(data)=>{
 
     let browser = await pt.launch({headless:true});
     let page = await browser.newPage();
@@ -30,7 +30,7 @@ let toPdf = async()=>{
     return bill
 }
 
-let toPng = async()=>{
+let toPng = async(data)=>{
     let browser = await pt.launch({headless:true});
     let page = await browser.newPage();
     const filePath = path.join(process.cwd(),"index.hbs")
@@ -50,28 +50,36 @@ let toPng = async()=>{
     return image
 }
 
-app.get("/invoice",async(req,res)=>{
+app.post("/invoice",async(req,res)=>{
+
+    let webhook = req.body
 
     try{
         res.writeHead(200,{
             "Content-Type": "application/pdf",
             "content-disposition": "attachment;filename=invoice.pdf"
         })
-        const receipt = await toPdf()
+        const receipt = await toPdf(webhook)
         res.end(receipt)
 
     }catch(err){
-        res.send(err.message)
+        res.status(501).send(err.message)
     }
     
 })
-app.get("/image",async(req,res)=>{
+
+app.post("/image",async(req,res)=>{
     try{
-    const receipt = await toPng()
-    res.contentType("application/png")
+    const webhook =req.body
+    const receipt = await toPng(webhook)
+    // res.contentType("application/png")
+    res.writeHead(200,{
+        "Content-Type": "application/png",
+        "content-disposition": "attachment;filename=image.png"
+    })
     res.end(receipt)
     }catch(err){
-        res.send(err.message)
+        res.status(501).send(err.message)
     }
     
 })
