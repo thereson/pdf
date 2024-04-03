@@ -1,13 +1,18 @@
 {
-    "Sender_Details": "CHINAZA MAUDLINE MBONU",
-    "amount":100.00,
-    "Description": "Airtime Purchase 23408037091146",
-    "Beneficiary_Details": "MTN NG VTU 2348037091146",
-    "Fees": 0,
-    "Transaction_Reference": "76ttgdudbkugo9ow254",
-    "Payment_Type": "Airtime",
-    "TransactionDate":"2024-010"
-
-
+    "SessionID":"026468",
+    "accountName":"(ohere)- Uka",
+    "accountNumber": "247942005642",
+    "amount":4000,
+    "clientRequest":"",
+    "instrumentNumber": "00468",
+    "narrations": " KIP:Access/AUU/TRF sent to your",
+    "payingBank": "Acess Bank",
+    "recipientName": "AU",
+    "senderAccountName": 8077657,
+    "SenderName": "(Ohere)-Uka",
+    "transactionDate":"2024-010",
+    "transactionReference":"546734",
+    "transactionScope":"",
+    "transactionType":"Credit"
 }
  
