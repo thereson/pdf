@@ -1,11 +1,12 @@
 const pt = require("puppeteer");
 let fs = require("fs");
-let path = require("path")
-const hbs = require("handlebars")
-// let jdt = require("./data.json")
-const express = require("express")
-let app = express()
+let path = require("path");
+const hbs = require("handlebars");
+const express = require("express");
 
+let app = express();
+app.use(express.urlencoded({extended:true}));
+app.use(express.json());
 
 
 let toPdf = async(data)=>{
@@ -53,6 +54,8 @@ let toPng = async(data)=>{
 app.post("/invoice",async(req,res)=>{
 
     let webhook = req.body
+    webhook.Time = new Date().toLocaleString().toString().split(",")[1]
+    webhook.TransactionDate=new Date().toLocaleString().toString().split(",")[0]
 
     try{
         res.writeHead(200,{
@@ -70,7 +73,10 @@ app.post("/invoice",async(req,res)=>{
 
 app.post("/image",async(req,res)=>{
     try{
-    const webhook =req.body
+    let webhook =req.body
+
+    webhook.Time = new Date().toLocaleString().toString().split(",")[1]
+    webhook.TransactionDate=new Date().toLocaleString().toString().split(",")[0]
     const receipt = await toPng(webhook)
     // res.contentType("application/png")
     res.writeHead(200,{
